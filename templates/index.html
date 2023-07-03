@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+ Disaster-Watch
+{%endblock head%}
+
+{% block body %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+      <h1>Welcome to DisasterWatch</h1>
+      <h2>Stay Ahead, Stay Safe with DisasterWatch: Real-time Insights for Natural Disasters</h2>
+      <a href="{{ url_for('weather') }}" class="btn-get-started scrollto">Get Started</a>
+    </div>
+  </section><!-- End Hero -->
+
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
+        <div class="container">
+  
+          <div class="row">
+            <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
+              <img src="{{ url_for('static', filename='index/assets/img/about.jpg') }}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
+              <h3>Your Real-time Guide to Natural Disasters.</h3>
+              <p class="fst-italic">
+                In a world where natural disasters pose significant threats to lives and infrastructure, being prepared and well-informed is paramount.
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circle"></i> Real-time Disaster Monitoring</li>
+                <li><i class="bi bi-check-circle"></i> Interactive Mapping</li>
+                <li><i class="bi bi-check-circle"></i> Reliable Data Sources</li>
+              </ul>
+              <p>
+                Whether it's earthquakes, hurricanes, floods, or wildfires, DisasterWatch empowers you with the ability to select a position on the map and receive instant updates on the potential threats in that area.
+              </p>
+            </div>
+          </div>
+  
+        </div>
+      </section><!-- End About Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+        <div class="container">
+  
+          <div class="row">
+  
+            <div class="col-lg-4" data-aos="fade-up">
+              <div class="box">
+                <span>01</span>
+                <h4>Real time Monitoring</h4>
+                <p>Using Machine learning to predict the chances of natural disasters to help people and communities get prepared. </p>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="150">
+              <div class="box">
+                <span>02</span>
+                <h4>Interactive Mapping</h4>
+                <p>Select Location on map and get all details about the region including weather forecast and disaster information</p>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
+              <div class="box">
+                <span>03</span>
+                <h4>Reliable Data Sources</h4>
+                <p>Using the best datasets available for training and most reliable resources for getting real time information</p>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </section><!-- End Why Us Section -->
+  
+
+          <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+        <div class="container" data-aos="zoom-in">
+  
+          <div class="text-center">
+            <h3> Don't wait until it's too late – act now with DisasterWatch!</h3>
+            <p> Take charge of your safety and be prepared for any natural disaster.</p>
+            <a class="cta-btn" href="#">DisasterWatch</a>
+          </div>
+  
+        </div>
+      </section><!-- End Cta Section -->
+  
+
+{% endblock %}
