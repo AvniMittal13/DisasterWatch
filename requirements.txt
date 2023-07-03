@@ -1,0 +1,7 @@
+scikit-learn==1.0.2
+requests==2.27.1
+Flask==2.0.3
+numpy==1.21.5
+tensorflow==2.4.0
+joblib
+python-dotenv
