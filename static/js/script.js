@@ -193,6 +193,24 @@ let predictForestFire = async () => {
     div.innerHTML = "Chances of a forest fire: " + forest_fire_data['value'];
   }
 
+  let predictHurricane = async () => {
+    var div = document.getElementById("weatherForecast");
+
+    // get weather data 
+    let weather_data = await getWeatherData();
+    let pressure = weather_data[0].Pressure.Metric.Value
+    let wind =  weather_data[0].Wind.Speed.Metric.Value
+    // get fire prediction
+    let hurricane_data = await makeRequest('/hurricane', {
+        'pressure': pressure,
+        'wind': wind
+    });
+    
+    // print fire prediction
+    // var newText = document.createTextNode("Chances of a forest fire: " + hurricane_data['value']);
+    div.innerHTML = "Chances of a hurricane: " + hurricane_data['value'];
+  }
+
 let convertCelcius = (fahrenheit) => {
     const celsius = (fahrenheit - 32) * 5 / 9;
     return Math.round(celsius);
@@ -331,7 +349,7 @@ navbarLinks.forEach(link => {
     //   currentWeatherDiv.innerHTML = 'This is the current weather content';
     } else if (selectedLinkId === 'weatherForecast') {
       // Add content to the weather forecast div
-      weatherForecastDiv.innerHTML = 'This is the weather forecast content';
+        predictHurricane();
     } else if (selectedLinkId === 'forest-fire') {
       // Add content to the forest fire div
       predictForestFire();

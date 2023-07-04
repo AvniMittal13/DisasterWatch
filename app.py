@@ -4,7 +4,7 @@ load_dotenv()
 import os
 import requests
 import json 
-from utils import forest_fire_prediction
+from utils import forest_fire_prediction, hurricane_prediction
 # from flask import SQLAlchemy 
 
 app = Flask(__name__)
@@ -39,6 +39,12 @@ def forest_fire():
     data = request.get_json()
     print(data)
     return forest_fire_prediction(data)
+
+@app.route('/hurricane', methods = ['POST', 'GET'])
+def hurricane():
+    data = request.get_json()
+    print(data)
+    return hurricane_prediction(data)
 
 @app.route('/get_location', methods = ['POST', 'GET'])
 def get_location_info():
