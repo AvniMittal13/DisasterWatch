@@ -19,4 +19,7 @@ def forest_fire_prediction(input_data):
         sum = sum + prediction
 
     sum_val = sum[0][0]
-    return {'value': sum_val/5}
+    ans = sum_val/5
+    if ans-0.4>0 :
+        ans = ans - 0.4
+    return {'value': ans}
