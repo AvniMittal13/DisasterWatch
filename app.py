@@ -100,11 +100,12 @@ def call_currentWeatherInfo_api(location_id):
         'details': True
     }
     response = requests.get(base_url, params=query_params)
+    print(response)
     if response.status_code == 200:
         weather_info = json.loads(response.content)
         return weather_info
     else:
-        return None
+        return response
 
 def call_12hrForecast_api(location_id):
     base_url =  'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/'+location_id
