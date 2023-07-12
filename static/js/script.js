@@ -276,27 +276,27 @@ let currentWeatherConditions = async () => {
 
     let time1 = new Date(weather_forecast.weather_info[1].DateTime);
     let hrs1 = time1.getHours();
-    let temp1 = convertCelcius(weather_forecast.weather_info[1].Temperature.Value)
+    let temp1 = weather_forecast.weather_info[1].Temperature.Value
 
     let time2 = new Date(weather_forecast.weather_info[2].DateTime);
     let hrs2 = time2.getHours();
-    let temp2 = convertCelcius(weather_forecast.weather_info[2].Temperature.Value)
+    let temp2 = weather_forecast.weather_info[2].Temperature.Value
 
     let time3 = new Date(weather_forecast.weather_info[3].DateTime);
     let hrs3 = time3.getHours();
-    let temp3 = convertCelcius(weather_forecast.weather_info[3].Temperature.Value)
+    let temp3 = weather_forecast.weather_info[3].Temperature.Value
 
     let time4 = new Date(weather_forecast.weather_info[4].DateTime);
     let hrs4 = time4.getHours();
-    let temp4 = convertCelcius(weather_forecast.weather_info[4].Temperature.Value)
+    let temp4 = weather_forecast.weather_info[4].Temperature.Value
 
     let time5 = new Date(weather_forecast.weather_info[5].DateTime);
     let hrs5 = time5.getHours();
-    let temp5 = convertCelcius(weather_forecast.weather_info[5].Temperature.Value)
+    let temp5 = weather_forecast.weather_info[5].Temperature.Value
 
     let time6 = new Date(weather_forecast.weather_info[6].DateTime);
     let hrs6 = time6.getHours();
-    let temp6 = convertCelcius(weather_forecast.weather_info[6].Temperature.Value)
+    let temp6 = weather_forecast.weather_info[6].Temperature.Value
 
 
     let htmlContent= `<div class="card shadow-0 border">
