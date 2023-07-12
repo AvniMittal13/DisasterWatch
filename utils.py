@@ -15,10 +15,10 @@ def forest_fire_prediction(input_data):
     sum = 0
     for idx in range(1,6):
         # temp(Celcius), humidity(%), wind(km/h), rain(mm/m2)
-        model = tf.keras.models.load_model('models/forest_fires/forest_fire_'+ str(idx) +'.h5')
+        model = tf.keras.models.load_model('models/forest_fires/forest_fire_'+ str(idx) +'.h5', compile=False)
         prediction = model.predict(input_arr)
         sum = sum + prediction
-
+    print("sum, ", sum)
     sum_val = sum[0][0]
     ans = sum_val/5
     if ans-0.4>0 :

@@ -175,11 +175,11 @@ let predictForestFire = async () => {
     // get weather data 
     let weather_data = await getWeatherData();
     console.log(weather_data)
-    console.log(weather_data[0].Temperature.Metric.Value)
-    let temperature = weather_data[0].Temperature.Metric.Value
-    let humidity = weather_data[0].IndoorRelativeHumidity
-    let wind =  weather_data[0].Wind.Speed.Metric.Value
-    let rain =  weather_data[0].PrecipitationSummary.Past24Hours.Metric.Value
+    console.log(weather_data.Temperature.Metric.Value)
+    let temperature = weather_data.Temperature.Metric.Value
+    let humidity = weather_data.IndoorRelativeHumidity
+    let wind =  weather_data.Wind.Speed.Metric.Value
+    let rain =  weather_data.PrecipitationSummary.Past24Hours.Metric.Value
     // get fire prediction
     let forest_fire_data = await makeRequest('/forest-fire', {
         'temperature': temperature,
@@ -229,42 +229,45 @@ let currentWeatherConditions = async () => {
 
     // get weather data 
     let weather_data = await getWeatherData();
-    let weather_text = weather_data[0].WeatherText;
-    let weather_icon = weather_data[0].WeatherIcon;
-    let realFeelTemp = weather_data[0].RealFeelTemperature.Metric.Value;
+    let weather_text = weather_data.WeatherText;
+    let weather_icon = weather_data.WeatherIcon;
+    let realFeelTemp = weather_data.RealFeelTemperature.Metric.Value;
 
-    let temperature = weather_data[0].Temperature.Metric.Value
-    let max_temp = weather_data[0].TemperatureSummary.Past6HourRange.Maximum.Metric.Value;
-    let min_temp = weather_data[0].TemperatureSummary.Past6HourRange.Minimum.Metric.Value;
+    let temperature = weather_data.Temperature.Metric.Value
+    let max_temp = weather_data.TemperatureSummary.Past6HourRange.Maximum.Metric.Value;
+    let min_temp = weather_data.TemperatureSummary.Past6HourRange.Minimum.Metric.Value;
 
     let weather_forecast = await makeRequest("/weather_forecast", {
         'latitude': currentLatitude,
         'longitude':currentLongitude    
     })
 
-    let time1 = new Date(weather_forecast[1].DateTime);
+    console.log(weather_forecast)
+    console.log(weather_forecast.weather_info)
+
+    let time1 = new Date(weather_forecast.weather_info[1].DateTime);
     let hrs1 = time1.getHours();
-    let temp1 = convertCelcius(weather_forecast[1].Temperature.Value)
+    let temp1 = convertCelcius(weather_forecast.weather_info[1].Temperature.Value)
 
-    let time2 = new Date(weather_forecast[2].DateTime);
+    let time2 = new Date(weather_forecast.weather_info[2].DateTime);
     let hrs2 = time2.getHours();
-    let temp2 = convertCelcius(weather_forecast[2].Temperature.Value)
+    let temp2 = convertCelcius(weather_forecast.weather_info[2].Temperature.Value)
 
-    let time3 = new Date(weather_forecast[3].DateTime);
+    let time3 = new Date(weather_forecast.weather_info[3].DateTime);
     let hrs3 = time3.getHours();
-    let temp3 = convertCelcius(weather_forecast[3].Temperature.Value)
+    let temp3 = convertCelcius(weather_forecast.weather_info[3].Temperature.Value)
 
-    let time4 = new Date(weather_forecast[4].DateTime);
+    let time4 = new Date(weather_forecast.weather_info[4].DateTime);
     let hrs4 = time4.getHours();
-    let temp4 = convertCelcius(weather_forecast[4].Temperature.Value)
+    let temp4 = convertCelcius(weather_forecast.weather_info[4].Temperature.Value)
 
-    let time5 = new Date(weather_forecast[5].DateTime);
+    let time5 = new Date(weather_forecast.weather_info[5].DateTime);
     let hrs5 = time5.getHours();
-    let temp5 = convertCelcius(weather_forecast[5].Temperature.Value)
+    let temp5 = convertCelcius(weather_forecast.weather_info[5].Temperature.Value)
 
-    let time6 = new Date(weather_forecast[6].DateTime);
+    let time6 = new Date(weather_forecast.weather_info[6].DateTime);
     let hrs6 = time6.getHours();
-    let temp6 = convertCelcius(weather_forecast[6].Temperature.Value)
+    let temp6 = convertCelcius(weather_forecast.weather_info[6].Temperature.Value)
 
 
     let htmlContent= `<div class="card shadow-0 border">
@@ -319,6 +322,35 @@ let currentWeatherConditions = async () => {
 
                     </div>`;
 
+
+                            // Integer values corresponding to 7 days of the week
+        const data = [temp1, temp2, temp3, temp4, temp5, temp6];
+
+        // Create a line chart
+        var ctx = document.getElementById("lineChart").getContext('2d');
+        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                                datasets: [{
+                                label: 'Integer Values',
+                                data: data,
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                                }
+                            }
+                        });
+
+
+    // div.insertAdjacentHTML('beforeend', htmlContent);
     div.insertAdjacentHTML('beforeend', htmlContent);
 }
 
@@ -330,6 +362,7 @@ const navbarLinks = document.querySelectorAll('.nav-item');
 const currentWeatherDiv = document.getElementById('currentWeatherCondition');
 const weatherForecastDiv = document.getElementById('weatherForecast');
 const forestFireDiv = document.getElementById('forest-fire');
+const linechart = document.getElementById('lineChart');
 
 // Add click event listeners to the navbar links
 navbarLinks.forEach(link => {
@@ -341,6 +374,7 @@ navbarLinks.forEach(link => {
     currentWeatherDiv.innerHTML = '';
     weatherForecastDiv.innerHTML = '';
     forestFireDiv.innerHTML = '';
+    linechart.innerHTML = '';
 
     // Add new content based on the selected link
     if (selectedLinkId === 'currentWeatherCondition') {
@@ -353,7 +387,71 @@ navbarLinks.forEach(link => {
     } else if (selectedLinkId === 'forest-fire') {
       // Add content to the forest fire div
       predictForestFire();
+      currentWeatherConditionsForestFire();
     //   forestFireDiv.innerHTML = 'This is the forest fire content';
     }
   });
 });
+
+
+let currentWeatherConditionsForestFire = async () => {
+    var div = document.getElementById("forest-fire");
+
+    let weather_forecast = await makeRequest("/weather_forecast", {
+        'latitude': currentLatitude,
+        'longitude':currentLongitude    
+    })
+
+    let time1 = new Date(weather_forecast.weather_info[1].DateTime);
+    let hrs1 = time1.getHours();
+    let temp1 = convertCelcius(weather_forecast.weather_info[1].Temperature.Value)
+
+    let time2 = new Date(weather_forecast.weather_info[2].DateTime);
+    let hrs2 = time2.getHours();
+    let temp2 = convertCelcius(weather_forecast.weather_info[2].Temperature.Value)
+
+    let time3 = new Date(weather_forecast.weather_info[3].DateTime);
+    let hrs3 = time3.getHours();
+    let temp3 = convertCelcius(weather_forecast.weather_info[3].Temperature.Value)
+
+    let time4 = new Date(weather_forecast.weather_info[4].DateTime);
+    let hrs4 = time4.getHours();
+    let temp4 = convertCelcius(weather_forecast.weather_info[4].Temperature.Value)
+
+    let time5 = new Date(weather_forecast.weather_info[5].DateTime);
+    let hrs5 = time5.getHours();
+    let temp5 = convertCelcius(weather_forecast.weather_info[5].Temperature.Value)
+
+    let time6 = new Date(weather_forecast.weather_info[6].DateTime);
+    let hrs6 = time6.getHours();
+    let temp6 = convertCelcius(weather_forecast.weather_info[6].Temperature.Value)
+
+        // Integer values corresponding to 7 days of the week
+        const data = [temp1, temp2, temp3, temp4, temp5, temp6];
+
+        // Create a line chart
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            datasets: [{
+              label: 'Integer Values',
+              data: data,
+              fill: false,
+              borderColor: 'rgb(200, 192, 192)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+
+    // div.insertAdjacentHTML('beforeend', htmlContent);
+}

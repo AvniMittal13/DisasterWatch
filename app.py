@@ -4,6 +4,7 @@ load_dotenv()
 import os
 import requests
 import json 
+from flask import jsonify
 from utils import forest_fire_prediction, hurricane_prediction
 # from flask import SQLAlchemy 
 
@@ -43,7 +44,7 @@ def forest_fire():
 @app.route('/hurricane', methods = ['POST', 'GET'])
 def hurricane():
     data = request.get_json()
-    print(data)
+    # print(data)
     return hurricane_prediction(data)
 
 @app.route('/get_location', methods = ['POST', 'GET'])
@@ -100,12 +101,13 @@ def call_currentWeatherInfo_api(location_id):
         'details': True
     }
     response = requests.get(base_url, params=query_params)
-    print(response)
+    # print(response)
     if response.status_code == 200:
         weather_info = json.loads(response.content)
-        return weather_info
+        # print(weather_info[0])
+        return weather_info[0]
     else:
-        return response
+        return None
 
 def call_12hrForecast_api(location_id):
     base_url =  'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/'+location_id
@@ -115,6 +117,6 @@ def call_12hrForecast_api(location_id):
     response = requests.get(base_url, params=query_params)
     if response.status_code == 200:
         weather_info = json.loads(response.content)
-        return weather_info
+        return jsonify({"weather_info" : weather_info})
     else:
         return None
