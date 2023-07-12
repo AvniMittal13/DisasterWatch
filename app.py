@@ -44,7 +44,7 @@ def forest_fire():
 @app.route('/hurricane', methods = ['POST', 'GET'])
 def hurricane():
     data = request.get_json()
-    # print(data)
+    print(data)
     return hurricane_prediction(data)
 
 @app.route('/get_location', methods = ['POST', 'GET'])

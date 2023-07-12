@@ -194,13 +194,14 @@ let predictForestFire = async () => {
   }
 
   let predictHurricane = async () => {
-    var div = document.getElementById("weatherForecast");
+    var div = document.getElementById("hurricane");
 
     // get weather data 
     let weather_data = await getWeatherData();
-    let pressure = weather_data[0].Pressure.Metric.Value
-    let wind =  weather_data[0].Wind.Speed.Metric.Value
-    // get fire prediction
+    console.log(weather_data);
+    let pressure = weather_data.Pressure.Metric.Value
+    let wind =  weather_data.Wind.Speed.Metric.Value
+    // get hurricane prediction
     let hurricane_data = await makeRequest('/hurricane', {
         'pressure': pressure,
         'wind': wind
@@ -360,8 +361,9 @@ let currentWeatherConditions = async () => {
 // Get references to the navbar links and the content divs
 const navbarLinks = document.querySelectorAll('.nav-item');
 const currentWeatherDiv = document.getElementById('currentWeatherCondition');
-const weatherForecastDiv = document.getElementById('weatherForecast');
+const weatherForecastDiv = document.getElementById('hurricane');
 const forestFireDiv = document.getElementById('forest-fire');
+const floodDiv = document.getElementById('flood');
 const linechart = document.getElementById('lineChart');
 
 // Add click event listeners to the navbar links
@@ -375,13 +377,15 @@ navbarLinks.forEach(link => {
     weatherForecastDiv.innerHTML = '';
     forestFireDiv.innerHTML = '';
     linechart.innerHTML = '';
+    floodDiv.innerHTML = '';
+
 
     // Add new content based on the selected link
     if (selectedLinkId === 'currentWeatherCondition') {
         currentWeatherConditions();
       // Add content to the current weather div
     //   currentWeatherDiv.innerHTML = 'This is the current weather content';
-    } else if (selectedLinkId === 'weatherForecast') {
+    } else if (selectedLinkId === 'hurricane') {
       // Add content to the weather forecast div
         predictHurricane();
     } else if (selectedLinkId === 'forest-fire') {
@@ -389,7 +393,12 @@ navbarLinks.forEach(link => {
       predictForestFire();
       currentWeatherConditionsForestFire();
     //   forestFireDiv.innerHTML = 'This is the forest fire content';
-    }
+    } else if (selectedLinkId === 'flood') {
+        // Add content to the forest fire div
+        predictFloodd();
+        currentWeatherConditionsFlood();
+      //   forestFireDiv.innerHTML = 'This is the forest fire content';
+      }
   });
 });
 

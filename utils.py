@@ -35,16 +35,17 @@ def hurricane_prediction(input_data):
     input_arr = hurricane_scaler.transform(input_arr)
     print(input_arr)
     sum = 0
-    for idx in range(1,6):
-        model = tf.keras.models.load_model('models/forest_fires/forest_fire_'+ str(idx) +'.h5')
+    for idx in range(1,5):
+        model = tf.keras.models.load_model('models/hurricane/hurricane'+ str(idx) +'.h5', compile=False)
         prediction = model.predict(input_arr)
         print("model ", idx,  " : ", prediction)
         print(np.argmax(prediction))
 
         sum = sum + np.argmax(prediction)
 
-    sum_val = sum[0][0]
-    ans = sum_val/4
+    print(sum)
+    # sum_val = sum[0][0]
+    ans = sum/4
     pred = "no hurricane"
     if ans>5 :
         pred = "hurricane can occur"
