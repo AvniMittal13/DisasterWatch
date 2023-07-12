@@ -190,7 +190,7 @@ let predictForestFire = async () => {
     
     // print fire prediction
     // var newText = document.createTextNode("Chances of a forest fire: " + forest_fire_data['value']);
-    div.innerHTML = "Chances of a forest fire: " + forest_fire_data['value'];
+    div.innerHTML = "Chances of a forest fire: " + forest_fire_data['value']+ " %";
   }
 
   let predictFlood = async () => {
@@ -204,7 +204,7 @@ let predictForestFire = async () => {
     let humidity = weather_data.IndoorRelativeHumidity
     let wind =  weather_data.Wind.Speed.Metric.Value
     let rain =  weather_data.PrecipitationSummary.Past24Hours.Metric.Value
-    let max_temp = weather_data.TemperatureSummary.Maximum.Metric.Value
+    let max_temp = weather_data.TemperatureSummary.Past24HourRange.Maximum.Metric.Value
     let cloud_cover = weather_data.CloudCover
     // get fire prediction
     let flood_data = await makeRequest('/flood', {
@@ -218,7 +218,7 @@ let predictForestFire = async () => {
     
     // print fire prediction
     // var newText = document.createTextNode("Chances of a forest fire: " + forest_fire_data['value']);
-    div.innerHTML = "Chances of a flood: " + flood_data['value'];
+    div.innerHTML = "Chances of a flood: " + flood_data['value'] + " %";
   }
 
   let predictHurricane = async () => {
@@ -424,7 +424,7 @@ navbarLinks.forEach(link => {
     } else if (selectedLinkId === 'flood') {
         // Add content to the forest fire div
         predictFlood();
-        // currentWeatherConditionsFlood();
+        currentWeatherConditionsFlood();
       //   forestFireDiv.innerHTML = 'This is the forest fire content';
       }
   });
@@ -439,44 +439,284 @@ let currentWeatherConditionsForestFire = async () => {
         'longitude':currentLongitude    
     })
 
+    let time0 = new Date(weather_forecast.weather_info[0].DateTime);
+    let hrs0 = time0.getHours();
+    let temp0 = weather_forecast.weather_info[0].Temperature.Value
+    let humidity0 = weather_forecast.weather_info[0].IndoorRelativeHumidity
+    let wind0 = weather_forecast.weather_info[0].Wind.Speed.Value
+    let rain0 = weather_forecast.weather_info[0].Rain.Value
+
+    let val0 = await makeRequest('/forest-fire', {
+        'temperature': temp0,
+        'humidity': humidity0,
+        'wind': wind0,
+        'rain': rain0
+    });
+
     let time1 = new Date(weather_forecast.weather_info[1].DateTime);
     let hrs1 = time1.getHours();
-    let temp1 = convertCelcius(weather_forecast.weather_info[1].Temperature.Value)
+    let temp1 = weather_forecast.weather_info[1].Temperature.Value
+    let humidity1 = weather_forecast.weather_info[1].IndoorRelativeHumidity
+    let wind1 = weather_forecast.weather_info[1].Wind.Speed.Value
+    let rain1 = weather_forecast.weather_info[1].Rain.Value
+
+    let val1 = await makeRequest('/forest-fire', {
+        'temperature': temp1,
+        'humidity': humidity1,
+        'wind': wind1,
+        'rain': rain1
+    });
 
     let time2 = new Date(weather_forecast.weather_info[2].DateTime);
     let hrs2 = time2.getHours();
-    let temp2 = convertCelcius(weather_forecast.weather_info[2].Temperature.Value)
+    let temp2 = weather_forecast.weather_info[2].Temperature.Value
+    let humidity2 = weather_forecast.weather_info[2].IndoorRelativeHumidity
+    let wind2 = weather_forecast.weather_info[2].Wind.Speed.Value
+    let rain2 = weather_forecast.weather_info[2].Rain.Value
+
+    let val2 = await makeRequest('/forest-fire', {
+        'temperature': temp2,
+        'humidity': humidity2,
+        'wind': wind2,
+        'rain': rain2
+    });
 
     let time3 = new Date(weather_forecast.weather_info[3].DateTime);
     let hrs3 = time3.getHours();
-    let temp3 = convertCelcius(weather_forecast.weather_info[3].Temperature.Value)
+    let temp3 = weather_forecast.weather_info[3].Temperature.Value
+    let humidity3 = weather_forecast.weather_info[3].IndoorRelativeHumidity
+    let wind3 = weather_forecast.weather_info[3].Wind.Speed.Value
+    let rain3 = weather_forecast.weather_info[3].Rain.Value
+
+    let val3 = await makeRequest('/forest-fire', {
+        'temperature': temp3,
+        'humidity': humidity3,
+        'wind': wind3,
+        'rain': rain3
+    });
 
     let time4 = new Date(weather_forecast.weather_info[4].DateTime);
     let hrs4 = time4.getHours();
-    let temp4 = convertCelcius(weather_forecast.weather_info[4].Temperature.Value)
+    let temp4 = weather_forecast.weather_info[4].Temperature.Value
+    let humidity4 = weather_forecast.weather_info[4].IndoorRelativeHumidity
+    let wind4 = weather_forecast.weather_info[4].Wind.Speed.Value
+    let rain4 = weather_forecast.weather_info[4].Rain.Value
+
+    let val4 = await makeRequest('/forest-fire', {
+        'temperature': temp4,
+        'humidity': humidity4,
+        'wind': wind4,
+        'rain': rain4
+    });
 
     let time5 = new Date(weather_forecast.weather_info[5].DateTime);
     let hrs5 = time5.getHours();
-    let temp5 = convertCelcius(weather_forecast.weather_info[5].Temperature.Value)
+    let temp5 = weather_forecast.weather_info[5].Temperature.Value
+    let humidity5 = weather_forecast.weather_info[5].IndoorRelativeHumidity
+    let wind5 = weather_forecast.weather_info[5].Wind.Speed.Value
+    let rain5 = weather_forecast.weather_info[5].Rain.Value
+
+    let val5 = await makeRequest('/forest-fire', {
+        'temperature': temp5,
+        'humidity': humidity5,
+        'wind': wind5,
+        'rain': rain5
+    });
 
     let time6 = new Date(weather_forecast.weather_info[6].DateTime);
     let hrs6 = time6.getHours();
-    let temp6 = convertCelcius(weather_forecast.weather_info[6].Temperature.Value)
+    let temp6 = weather_forecast.weather_info[6].Temperature.Value
+    let humidity6 = weather_forecast.weather_info[6].IndoorRelativeHumidity
+    let wind6 = weather_forecast.weather_info[6].Wind.Speed.Value
+    let rain6 = weather_forecast.weather_info[6].Rain.Value
+
+    let val6 = await makeRequest('/forest-fire', {
+        'temperature': temp6,
+        'humidity': humidity6,
+        'wind': wind6,
+        'rain': rain6
+    });
 
         // Integer values corresponding to 7 days of the week
-        const data = [temp1, temp2, temp3, temp4, temp5, temp6];
+        const data = [val0['value'], val1['value'], val2['value'], val3['value'], val4['value'], val5['value'], val6['value']];
 
         // Create a line chart
         const ctx = document.getElementById('lineChart').getContext('2d');
         new Chart(ctx, {
           type: 'line',
           data: {
-            labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            labels: [hrs0, hrs1, hrs2, hrs3, hrs4, hrs5, hrs6],
             datasets: [{
-              label: 'Integer Values',
+              label: 'Forest Fire Prediction',
               data: data,
               fill: false,
               borderColor: 'rgb(200, 192, 192)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            scales: {
+                yAxes:[{
+                beginAtZero: true,
+                max: 100
+              }]
+            }
+          }
+        });
+
+    // div.insertAdjacentHTML('beforeend', htmlContent);
+}
+
+
+
+let currentWeatherConditionsFlood = async () => {
+    var div = document.getElementById("flood");
+
+    let weather_forecast = await makeRequest("/weather_forecast", {
+        'latitude': currentLatitude,
+        'longitude':currentLongitude    
+    })
+
+    let time0 = new Date(weather_forecast.weather_info[0].DateTime);
+    let hrs0 = time0.getHours();
+    let temp0 = weather_forecast.weather_info[0].Temperature.Value
+    let humidity0 = weather_forecast.weather_info[0].IndoorRelativeHumidity
+    let wind0 = weather_forecast.weather_info[0].Wind.Speed.Value
+    let rain0 = weather_forecast.weather_info[0].Rain.Value
+    let max_temp0 =  weather_forecast.weather_info[0].RealFeelTemperature.Value
+    let cloud_cover0 =  weather_forecast.weather_info[0].CloudCover
+
+    let val0 = await makeRequest('/flood', {
+        'temperature': temp0,
+        'humidity': humidity0,
+        'wind': wind0,
+        'rain': rain0,
+        'max_temp': max_temp0,
+        'cloud_cover': cloud_cover0
+    });
+
+    let time1 = new Date(weather_forecast.weather_info[1].DateTime);
+    let hrs1 = time1.getHours();
+    let temp1 = weather_forecast.weather_info[1].Temperature.Value
+    let humidity1 = weather_forecast.weather_info[1].IndoorRelativeHumidity
+    let wind1 = weather_forecast.weather_info[1].Wind.Speed.Value
+    let rain1 = weather_forecast.weather_info[1].Rain.Value
+    let max_temp1 =  weather_forecast.weather_info[1].RealFeelTemperature.Value
+    let cloud_cover1 =  weather_forecast.weather_info[1].CloudCover
+
+    let val1 = await makeRequest('/flood', {
+        'temperature': temp1,
+        'humidity': humidity1,
+        'wind': wind1,
+        'rain': rain1,
+        'max_temp': max_temp1,
+        'cloud_cover': cloud_cover1
+    });
+
+    let time2 = new Date(weather_forecast.weather_info[2].DateTime);
+    let hrs2 = time2.getHours();
+    let temp2 = weather_forecast.weather_info[2].Temperature.Value
+    let humidity2 = weather_forecast.weather_info[2].IndoorRelativeHumidity
+    let wind2 = weather_forecast.weather_info[2].Wind.Speed.Value
+    let rain2 = weather_forecast.weather_info[2].Rain.Value
+    let max_temp2 =  weather_forecast.weather_info[2].RealFeelTemperature.Value
+    let cloud_cover2 =  weather_forecast.weather_info[2].CloudCover
+
+    let val2 = await makeRequest('/flood', {
+        'temperature': temp2,
+        'humidity': humidity2,
+        'wind': wind2,
+        'rain': rain2,
+        'max_temp': max_temp2,
+        'cloud_cover': cloud_cover2
+    });
+
+    let time3 = new Date(weather_forecast.weather_info[3].DateTime);
+    let hrs3 = time3.getHours();
+    let temp3 = weather_forecast.weather_info[3].Temperature.Value
+    let humidity3 = weather_forecast.weather_info[3].IndoorRelativeHumidity
+    let wind3 = weather_forecast.weather_info[3].Wind.Speed.Value
+    let rain3 = weather_forecast.weather_info[3].Rain.Value
+    let max_temp3 =  weather_forecast.weather_info[3].RealFeelTemperature.Value
+    let cloud_cover3 =  weather_forecast.weather_info[3].CloudCover
+
+    let val3 = await makeRequest('/flood', {
+        'temperature': temp3,
+        'humidity': humidity3,
+        'wind': wind3,
+        'rain': rain3,
+        'max_temp': max_temp3,
+        'cloud_cover': cloud_cover3
+    });
+
+    let time4 = new Date(weather_forecast.weather_info[4].DateTime);
+    let hrs4 = time4.getHours();
+    let temp4 = weather_forecast.weather_info[4].Temperature.Value
+    let humidity4 = weather_forecast.weather_info[4].IndoorRelativeHumidity
+    let wind4 = weather_forecast.weather_info[4].Wind.Speed.Value
+    let rain4 = weather_forecast.weather_info[4].Rain.Value
+    let max_temp4 =  weather_forecast.weather_info[4].RealFeelTemperature.Value
+    let cloud_cover4 =  weather_forecast.weather_info[4].CloudCover
+
+    let val4 = await makeRequest('/flood', {
+        'temperature': temp4,
+        'humidity': humidity4,
+        'wind': wind4,
+        'rain': rain4,
+        'max_temp': max_temp4,
+        'cloud_cover': cloud_cover4
+    });
+
+    let time5 = new Date(weather_forecast.weather_info[5].DateTime);
+    let hrs5 = time5.getHours();
+    let temp5 = weather_forecast.weather_info[5].Temperature.Value
+    let humidity5 = weather_forecast.weather_info[5].IndoorRelativeHumidity
+    let wind5 = weather_forecast.weather_info[5].Wind.Speed.Value
+    let rain5 = weather_forecast.weather_info[5].Rain.Value
+    let max_temp5 =  weather_forecast.weather_info[5].RealFeelTemperature.Value
+    let cloud_cover5 =  weather_forecast.weather_info[5].CloudCover
+
+    let val5 = await makeRequest('/flood', {
+        'temperature': temp5,
+        'humidity': humidity5,
+        'wind': wind5,
+        'rain': rain5,
+        'max_temp': max_temp5,
+        'cloud_cover': cloud_cover5
+    });
+
+    let time6 = new Date(weather_forecast.weather_info[6].DateTime);
+    let hrs6 = time6.getHours();
+    let temp6 = weather_forecast.weather_info[6].Temperature.Value
+    let humidity6 = weather_forecast.weather_info[6].IndoorRelativeHumidity
+    let wind6 = weather_forecast.weather_info[6].Wind.Speed.Value
+    let rain6 = weather_forecast.weather_info[6].Rain.Value
+    let max_temp6 =  weather_forecast.weather_info[6].RealFeelTemperature.Value
+    let cloud_cover6 =  weather_forecast.weather_info[6].CloudCover
+
+    let val6 = await makeRequest('/flood', {
+        'temperature': temp6,
+        'humidity': humidity6,
+        'wind': wind6,
+        'rain': rain6,
+        'max_temp': max_temp6,
+        'cloud_cover': cloud_cover6
+    });
+
+        // Integer values corresponding to 7 days of the week
+        const data = [val0['value'], val1['value'], val2['value'], val3['value'], val4['value'], val5['value'], val6['value']];
+        console.log(data)
+        // Create a line chart
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: [hrs0, hrs1, hrs2, hrs3, hrs4, hrs5, hrs6],
+            datasets: [{
+              label: 'Flood Prediction',
+              data: data,
+              fill: false,
+              borderColor: 'rgb(200, 42, 92)',
               tension: 0.1
             }]
           },
@@ -488,7 +728,6 @@ let currentWeatherConditionsForestFire = async () => {
             }
           }
         });
-
 
     // div.insertAdjacentHTML('beforeend', htmlContent);
 }

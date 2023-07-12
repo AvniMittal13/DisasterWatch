@@ -23,8 +23,15 @@ def forest_fire_prediction(input_data):
     print("sum, ", sum)
     sum_val = sum[0][0]
     ans = sum_val/5
-    if ans-0.4>0 :
+    if ans > 1 :
+        ans = ans-1
+    elif ans-0.4>0 :
         ans = ans - 0.4
+
+    ans = 100*(ans)
+    ans = round(ans, 5)
+    if ans<0:
+        ans = ans * -1
     return {'value': ans}
 
 def flood_prediction(input_data):
@@ -42,8 +49,12 @@ def flood_prediction(input_data):
     print("sum, ", sum)
     sum_val = sum[0][0]
     ans = sum_val/5
+    ans = 100*(1-ans)
+    ans = round(ans, 5)
     # if ans-0.4>0 :
     #     ans = ans - 0.4
+    if ans<0:
+        ans = ans * -1
     return {'value': ans}
 
 def hurricane_prediction(input_data):
