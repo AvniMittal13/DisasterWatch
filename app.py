@@ -5,7 +5,7 @@ import os
 import requests
 import json 
 from flask import jsonify
-from utils import forest_fire_prediction, hurricane_prediction
+from utils import forest_fire_prediction, hurricane_prediction, flood_prediction
 # from flask import SQLAlchemy 
 
 app = Flask(__name__)
@@ -40,6 +40,12 @@ def forest_fire():
     data = request.get_json()
     print(data)
     return forest_fire_prediction(data)
+
+@app.route('/flood', methods = ['POST', 'GET'])
+def flood():
+    data = request.get_json()
+    print(data)
+    return flood_prediction(data)
 
 @app.route('/hurricane', methods = ['POST', 'GET'])
 def hurricane():

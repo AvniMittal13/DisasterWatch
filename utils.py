@@ -4,6 +4,8 @@ from joblib import load
 
 forest_fire_scalar = load('models/forest_fires/forest_fire_scalar.bin')
 hurricane_scaler =  load('models/hurricane/hurricane_scalar.bin')
+flood_scalar =  load('models/flood/flood_scalar.bin')
+
 
 def forest_fire_prediction(input_data):
     input_data['rain'] = np.log(input_data['rain'] + 1)
@@ -23,6 +25,25 @@ def forest_fire_prediction(input_data):
     ans = sum_val/5
     if ans-0.4>0 :
         ans = ans - 0.4
+    return {'value': ans}
+
+def flood_prediction(input_data):
+    print(input_data)
+    input_arr =  np.array([[input_data['temperature'], input_data['max_temp'], input_data['wind'], input_data['cloud_cover'], input_data['rain'], input_data['humidity']]])
+
+    input_arr = flood_scalar.transform(input_arr)
+    print(input_arr)
+    sum = 0
+    for idx in range(1,6):
+        # temp(Celcius), humidity(%), wind(km/h), rain(mm/m2)
+        model = tf.keras.models.load_model('models/flood/flood_'+ str(idx) +'.h5', compile=False)
+        prediction = model.predict(input_arr)
+        sum = sum + prediction
+    print("sum, ", sum)
+    sum_val = sum[0][0]
+    ans = sum_val/5
+    # if ans-0.4>0 :
+    #     ans = ans - 0.4
     return {'value': ans}
 
 def hurricane_prediction(input_data):
