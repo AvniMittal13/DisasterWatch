@@ -274,6 +274,10 @@ let currentWeatherConditions = async () => {
     console.log(weather_forecast)
     console.log(weather_forecast.weather_info)
 
+    let time0 = new Date(weather_forecast.weather_info[0].DateTime);
+    let hrs0 = time0.getHours();
+    let temp0 = weather_forecast.weather_info[0].Temperature.Value
+            
     let time1 = new Date(weather_forecast.weather_info[1].DateTime);
     let hrs1 = time1.getHours();
     let temp1 = weather_forecast.weather_info[1].Temperature.Value
@@ -353,14 +357,14 @@ let currentWeatherConditions = async () => {
 
 
                             // Integer values corresponding to 7 days of the week
-        const data = [temp1, temp2, temp3, temp4, temp5, temp6];
+        const data = [temp0, temp1, temp2, temp3, temp4, temp5, temp6];
 
         // Create a line chart
         var ctx = document.getElementById("lineChart").getContext('2d');
         new Chart(ctx, {
                             type: 'line',
                             data: {
-                                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                                labels: [hrs0, hrs1, hrs2, hrs3, hrs4, hrs5, hrs6],
                                 datasets: [{
                                 label: 'Integer Values',
                                 data: data,
