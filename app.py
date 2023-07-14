@@ -24,13 +24,13 @@ def weather():
 @app.route('/current_weather', methods = ['POST', 'GET'])
 def currentWeather():
     # extract lat long information
-    print("request get weather: ", request.get_json())
+    # print("request get weather: ", request.get_json())
     data = request.get_json()
     latLong = (str)(data['latitude'])+','+(str)(data['longitude'])
 
     # get location id 
     locId = call_location_id_api(latLong)
-    print(locId)
+   # print(locId)
 
     # get current weather information
     return call_currentWeatherInfo_api(locId)
@@ -38,19 +38,19 @@ def currentWeather():
 @app.route('/forest-fire', methods = ['POST', 'GET'])
 def forest_fire():
     data = request.get_json()
-    print(data)
+    # print(data)
     return forest_fire_prediction(data)
 
 @app.route('/flood', methods = ['POST', 'GET'])
 def flood():
     data = request.get_json()
-    print(data)
+    # print(data)
     return flood_prediction(data)
 
 @app.route('/hurricane', methods = ['POST', 'GET'])
 def hurricane():
     data = request.get_json()
-    print(data)
+   # print(data)
     return hurricane_prediction(data)
 
 @app.route('/get_location', methods = ['POST', 'GET'])
