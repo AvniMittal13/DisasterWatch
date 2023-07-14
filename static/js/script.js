@@ -156,7 +156,6 @@ let getWeatherData = async () => {
 } 
 
 let makeRequest = async (route, payload) => {
-    print("innnnn")
     let response = await fetch(route, {
         method:'POST',
         headers: {
@@ -277,7 +276,7 @@ let currentWeatherConditions = async () => {
     let time0 = new Date(weather_forecast.weather_info[0].DateTime);
     let hrs0 = time0.getHours();
     let temp0 = weather_forecast.weather_info[0].Temperature.Value
-            
+
     let time1 = new Date(weather_forecast.weather_info[1].DateTime);
     let hrs1 = time1.getHours();
     let temp1 = weather_forecast.weather_info[1].Temperature.Value
@@ -366,7 +365,7 @@ let currentWeatherConditions = async () => {
                             data: {
                                 labels: [hrs0, hrs1, hrs2, hrs3, hrs4, hrs5, hrs6],
                                 datasets: [{
-                                label: 'Integer Values',
+                                label: 'Temperature Prediction',
                                 data: data,
                                 fill: false,
                                 borderColor: 'rgb(75, 192, 192)',
@@ -415,19 +414,23 @@ navbarLinks.forEach(link => {
     // Add new content based on the selected link
     if (selectedLinkId === 'currentWeatherCondition') {
         currentWeatherConditions();
+        linechart.style.display = "block";
       // Add content to the current weather div
     //   currentWeatherDiv.innerHTML = 'This is the current weather content';
     } else if (selectedLinkId === 'hurricane') {
       // Add content to the weather forecast div
         predictHurricane();
+        linechart.style.display = "none";
     } else if (selectedLinkId === 'forest-fire') {
       // Add content to the forest fire div
       predictForestFire();
+      linechart.style.display = "block";
       currentWeatherConditionsForestFire();
     //   forestFireDiv.innerHTML = 'This is the forest fire content';
     } else if (selectedLinkId === 'flood') {
         // Add content to the forest fire div
         predictFlood();
+        linechart.style.display = "block";
         currentWeatherConditionsFlood();
       //   forestFireDiv.innerHTML = 'This is the forest fire content';
       }
